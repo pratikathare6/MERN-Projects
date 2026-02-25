@@ -9,12 +9,18 @@ const admin = [
 ]
 
 const employees = [
-
-    [
   {
     "id": 1,
+    "firstname": "John",
     "email": "john.doe@company.com",
     "password": "123",
+    "taskcounts": {
+      "total": 2,
+      "active": 1,
+      "newTask": 0,
+      "completed": 1,
+      "failed": 0
+    },
     "tasks": [
       {
         "active": true,
@@ -40,8 +46,16 @@ const employees = [
   },
   {
     "id": 2,
+    "firstname": "User",
     "email": "user.user@company.com",
     "password": "123",
+    "taskcounts": {
+      "total": 1,
+      "active": 1,
+      "newTask": 1,
+      "completed": 0,
+      "failed": 0
+    },
     "tasks": [
       {
         "active": true,
@@ -57,8 +71,16 @@ const employees = [
   },
   {
     "id": 3,
+    "firstname": "Mike",
     "email": "mike.wilson@company.com",
     "password": "123",
+    "taskcounts": {
+      "total": 2,
+      "active": 1,
+      "newTask": 0,
+      "completed": 1,
+      "failed": 0
+    },
     "tasks": [
       {
         "active": false,
@@ -84,8 +106,16 @@ const employees = [
   },
   {
     "id": 4,
+    "firstname": "Sarah",
     "email": "sarah.brown@company.com",
     "password": "123",
+    "taskcounts": {
+      "total": 1,
+      "active": 0,
+      "newTask": 0,
+      "completed": 0,
+      "failed": 1
+    },
     "tasks": [
       {
         "active": false,
@@ -101,8 +131,16 @@ const employees = [
   },
   {
     "id": 5,
+    "firstname": "David",
     "email": "david.johnson@company.com",
     "password": "123",
+    "taskcounts": {
+      "total": 1,
+      "active": 0,
+      "newTask": 0,
+      "completed": 1,
+      "failed": 0
+    },
     "tasks": [
       {
         "active": false,
@@ -116,11 +154,9 @@ const employees = [
       }
     ]
   }
-]
+];
 
-]
-
-
+    
 export const setlocalstorege = ()=>{
 
     localStorage.setItem('employees',JSON.stringify(employees))
@@ -133,8 +169,11 @@ export const getlocalstorege = ()=>{
     const employees = JSON.parse(localStorage.getItem('employees'))
     const admin = JSON.parse(localStorage.getItem('admin'))
 
+  return {employees,admin}
 
-
-    
+  
 
 }
+ 
+ 
+ 
