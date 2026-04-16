@@ -82,3 +82,73 @@ Example response:
 
 - Passwords are hashed before storage.
 - `socketId` is optional and may be `null` if not set.
+
+## `POST /users/login`
+
+Authenticate a user with email and password.
+
+### Description
+
+This endpoint verifies the user's credentials. If valid, it returns a JWT token and the user object.
+
+### Request URL
+
+`POST /users/login`
+
+### Request Headers
+
+- `Content-Type: application/json`
+
+### Request Body
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+### Field Requirements
+
+- `email` - required, must be a valid email address
+- `password` - required, minimum 6 characters
+
+### Success Response
+
+- Status: `200 OK`
+- Content-Type: `application/json`
+
+Example response:
+
+```json
+{
+  "token": "<jwt_token>",
+  "isUser": {
+    "_id": "<user_id>",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+}
+```
+
+### Error Responses
+
+- Status: `401 Unauthorized`
+  - Returned when email or password is invalid.
+
+Example response:
+
+```json
+{
+  "message": "Invalid email or Password"
+}
+```
+
+### Notes
+
+- Password is compared using bcrypt.
+- Token is generated using JWT.

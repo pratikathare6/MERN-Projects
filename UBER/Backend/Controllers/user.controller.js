@@ -1,36 +1,60 @@
-import userModel from '../Models/user.model.js'
-import { validationResult } from 'express-validator'
-import { createUser } from '../Services/user.service.js';
+import userModel from "../Models/user.model.js";
+import { validationResult } from "express-validator";
+import { createUser } from "../Services/user.service.js";
 
-export const registerUser = async(req,res,next)=>{
+export const registerUser = async (req, res, next) => {
+  const errors = validationResult(req);
 
-        const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
 
-        if(!errors.isEmpty()){
+  const { fullname, email, password } = req.body;
 
-            return res.status(400).json({
+  console.log({ fullname, email, password });
 
-                errors: errors.array()
-            })
-        }
+  const hashedPassword = await userModel.hashPassword(password);
 
+  const user = await createUser({
+    firstname: fullname.firstname,
+    lastname: fullname.lastname,
+    email,
+    password: hashedPassword,
+  });
 
-    const {fullname,email,password} = req.body;
+  const token = user.generateAuthToken();
 
-    console.log({fullname,email,password} )
+  res.status(200).json({
+    token,
+    user,
+  });
+};
 
-    const hashedPassword = await userModel.hashPassword(password)
+export const loginUser = async (req, res, next) => {
+  const { email, password } = req.body;
 
-    const user = await createUser({
-        firstname: fullname.firstname,
-        lastname: fullname.lastname,
-        email,
-        password: hashedPassword
-    })
+  const isUser = await userModel.findOne({ email }).select("+password");
 
-    const token = user.generateAuthToken();
+  if (!isUser) {
+    return res.status(401).json({
+      message: "Invalid email or Password",
+    });
+  }
 
-    res.status(200).json({
-        token,user
-    })
-}
+  const isMatch = await isUser.comparePassword(password);
+
+  if (!isMatch) {
+    return res.status(401).json({
+      messgae: "Invalid email or password",
+    });
+  }
+
+  const token = isUser.generateAuthToken();
+
+  res.status(200).json({
+    token,
+    isUser,
+  });
+};

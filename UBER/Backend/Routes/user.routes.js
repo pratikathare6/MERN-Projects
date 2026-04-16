@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import {body,validationResult} from "express-validator";
-import {registerUser} from "../Controllers/user.controller.js";
+import {registerUser,loginUser} from "../Controllers/user.controller.js";
 router.post(
   "/register",
   [
@@ -15,5 +15,15 @@ router.post(
   ],
   registerUser,
 );
+
+
+router.post("/login",[
+
+    body("email").isEmail().withMessage('Invalid Email'),
+    body("password").isLength({min:6}).withMessage("Invalid Password")
+
+],loginUser)
+
+
 
 export default router;
