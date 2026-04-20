@@ -152,3 +152,31 @@ Example response:
 
 - Password is compared using bcrypt.
 - Token is generated using JWT.
+
+## API Endpoints
+
+### `/users/profile`
+- **GET /api/users/profile**: Retrieves the authenticated user's profile information. Requires a valid JWT token.
+
+**Example Request:**
+`GET /api/users/profile`
+**Example Response (Success):**
+```json
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "john.doe@example.com"
+}
+```
+
+### `/users/logout`
+- **GET /api/users/logout**: Logs the user out by clearing the session token. Requires a valid JWT token.
+
+**Example Request:**
+`GET /api/users/logout`
+**Example Response (Success):**
+```json
+{
+  "message": "Logged Out Successfully"
+}
+```
