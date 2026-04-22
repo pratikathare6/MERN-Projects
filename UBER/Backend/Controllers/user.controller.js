@@ -3,7 +3,6 @@ import { validationResult } from "express-validator";
 import { createUser } from "../Services/user.service.js";
 import BlacklistToken from "../Models/blacklistToken.models.js";
 
-
 export const registerUser = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -15,14 +14,12 @@ export const registerUser = async (req, res, next) => {
 
   const { fullname, email, password } = req.body;
 
-  const isUserAlreadyExists = await userModel.findOne({email})
+  const isUserAlreadyExists = await userModel.findOne({ email });
 
-  if(isUserAlreadyExists){
-
+  if (isUserAlreadyExists) {
     return res.status(401).json({
-
-      message: 'User is already exists'
-    })
+      message: "User is already exists",
+    });
   }
 
   console.log({ fullname, email, password });
@@ -65,7 +62,7 @@ export const loginUser = async (req, res, next) => {
 
   const token = isUser.generateAuthToken();
 
-  res.cookie('token',token);
+  res.cookie("token", token);
 
   res.status(200).json({
     token,
@@ -73,21 +70,18 @@ export const loginUser = async (req, res, next) => {
   });
 };
 
-export const getUserProfile = async(req,res,next)=>{
+export const getUserProfile = async (req, res, next) => {
+  res.status(200).json(req.user);
+};
 
-    res.status(200).json(req.user)
-}
+export const logoutUser = async (req, res, next) => {
+  const token = req.cookies.token || req.headers.Authorization.split(" ")[1];
 
-export const logoutUser = async(req,res,next)=>{
+  await BlacklistToken.create({ token });
+  
+  res.clearCookie("token");
 
-      res.clearCookie('token');
-
-      const token = req.cookies.token || req.headers.Authorization.split(' ')[1];
-
-      await BlacklistToken.create({token})
-
-      res.status(200).json({
-
-        message: 'Logged Out Sucessfully'
-      })
-}
+  res.status(200).json({
+    message: "Logged Out Sucessfully",
+  });
+};
