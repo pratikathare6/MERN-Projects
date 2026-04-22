@@ -180,3 +180,73 @@ Example response:
   "message": "Logged Out Successfully"
 }
 ```
+
+## Captain API Endpoints
+
+### `/captains/register`
+- **POST /api/captains/register**: Registers a new captain with the application. It validates the input, hashes the password, saves the captain to the database, and returns a JWT token along with the created captain object.
+
+**Example Request:**
+`POST /api/captains/register`
+**Example Request Body:**
+```json
+{
+  "fullName": {
+    "firstName": "Alice",
+    "lastName": "Smith"
+  },
+  "email": "alice@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC1234",
+    "capacity": 2,
+    "vehicleType": "car"
+  }
+}
+```
+
+**Example Success Response:**
+```json
+{
+  "token": "<jwt_token>",
+  "captain": {
+    "_id": "<captain_id>",
+    "fullName": {
+      "firstName": "Alice",
+      "lastName": "Smith"
+    },
+    "email": "alice@example.com",
+    "socketId": null
+  }
+}
+```
+
+### `/captains/login`
+- **POST /api/captains/login**: Authenticates a captain with email and password. If valid, it returns a JWT token and the captain user object.
+
+**Example Request:**
+`POST /api/captains/login`
+**Example Request Body:**
+```json
+{
+  "email": "alice@example.com",
+  "password": "password123"
+}
+```
+
+**Example Success Response:**
+```json
+{
+  "token": "<jwt_token>",
+  "isUser": {
+    "_id": "<captain_id>",
+    "fullName": {
+      "firstName": "Alice",
+      "LastName": "Smith"
+    },
+    "email": "alice@example.com",
+    "socketId": null
+  }
+}
+```

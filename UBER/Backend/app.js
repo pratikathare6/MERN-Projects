@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 import connectToDB from './DB/db.js';
 import userRouter from './Routes/user.routes.js'
+import captainRouter from './Routes/captain.routes.js'
 
 connectToDB();
 
@@ -22,5 +23,6 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/users',userRouter)
+app.use('/captains',captainRouter)
 
 export default app
