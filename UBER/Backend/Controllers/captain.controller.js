@@ -81,7 +81,7 @@ export const profileCaptain = async (req, res, next) => {
 };
 
 export const logoutCaptain = async (req, res) => {
-  const token = req.cookies.token || req.headers.Authorization.split(" ")[1];
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   await BlacklistToken.create({ token });
 
