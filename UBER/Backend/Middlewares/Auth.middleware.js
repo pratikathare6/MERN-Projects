@@ -4,7 +4,7 @@ import captainModel from "../Models/captain.model.js";
 import BlacklistToken from "../Models/blacklistToken.models.js";
 
 export const authUserMiddleware = async (req, res, next) => {
-  const token = req.cookies.token || req.headers.Authorization?.split(" ")[1];
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({
@@ -36,7 +36,7 @@ export const authUserMiddleware = async (req, res, next) => {
 };
 
 export const authCaptainMiddleware = async (req, res,next) => {
-  const token = req.cookies.token || req.headers.Authorization?.split(" ")[1];
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React,{ useState } from "react";
+import { CaptainDataContext } from "../Context/CaptainContext";
+import { useContext } from "react";
 
 const CaptainSignup = () => {
 
@@ -8,10 +10,12 @@ const CaptainSignup = () => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
     const [userdata, setuserdata] = useState({});
+
+    const {captain,setcaptain} = React.useContext(CaptainDataContext)
   
     const handleLogin = (e) => {
       e.preventDefault();
-      setuserdata({ username:{firstname:firstname, lastname: lastname}, email: email, password: password });
+      setuserdata({ fullName:{firstname:firstname, lastname: lastname}, email: email, password: password });
       console.log(userdata);
   
       setfirstname("");
@@ -33,7 +37,7 @@ const CaptainSignup = () => {
             handleLogin(e);
           }}
         >
-          <h3 className="text-lg mb-2">What's your name</h3>
+          <h3 className="text-lg mb-2">What's our captains name</h3>
 
           <div className="flex gap-2">
             <input
@@ -58,7 +62,7 @@ const CaptainSignup = () => {
             />
           </div>
 
-          <h3 className="text-lg mb-2 mt-2">What's your email</h3>
+          <h3 className="text-lg mb-2 mt-2">What's our captains email</h3>
           <input
             required
             className="bg-[#eeee] rounded border px-4 py-2 w-full font-medium placeholder:text-base"
