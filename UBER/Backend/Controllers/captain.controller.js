@@ -9,8 +9,11 @@ export const registerCaptain = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       errors: errors.array(),
+      
     });
   }
+    console.log(errors)
+
 
   const { fullName, email, password, vehicle } = req.body;
 
