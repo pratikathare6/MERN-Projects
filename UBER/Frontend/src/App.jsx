@@ -12,6 +12,9 @@ import UserProtectedWrapper from "./Pages/UserProtectedWrapper";
 import UserLogout from "./Pages/UserLogout";
 import CaptainHome from "./Pages/CaptainHome";
 import CaptainProtectedWrapper from "./Pages/CaptainProtectedWrapper";
+import Riding from "./Pages/Riding";
+import CaptainRiding from "./Pages/CaptainRiding";
+import 'remixicon/fonts/remixicon.css'
 
 function App() {
   const ans = useContext(UserDataContext);
@@ -40,6 +43,7 @@ function App() {
         <Route path="/Signup" element={<Usersignup />} />
         <Route path="/Captain-login" element={<CaptainLogin />} />
         <Route path="/Captain-signup" element={<CaptainSignup />} />
+        <Route path="/riding" element={<Riding />} />
         <Route
           path="/captain-home"
           element={
@@ -48,6 +52,9 @@ function App() {
             </CaptainProtectedWrapper>
           }
         />
+
+        <Route path="/captain-riding" element={<CaptainRiding/>}/>
+
       </Routes>
     </div>
   );
